@@ -1,9 +1,8 @@
 from Node import Node
 
 def gen_carry(num):
-    if num>9:
-        res=num%10
-        carry=num//10
+    res=num%10
+    carry=num//10
     return res,carry
 
 def SumLists(h1,h2):
@@ -35,5 +34,22 @@ def SumLists(h1,h2):
         sum=Node(carry)
     return sh
 
+def SumList_recur(h1,h2):
+    return addlist(h1,h2,0)
 
-                
+def addlist(n1,n2,c):
+    
+    #Base Case
+    if (n1==None and n2==None and c==0):
+        return None
+    #Recursive case
+    else: 
+        sum=Node()
+        v1=n1.data if n1!=None else 0
+        v2=n2.data if n2!=None else 0
+        sum.data,c=gen_carry(v1+v2+c)
+        rem=addlist(None if n1==None else n1.next,
+                None if n2==None else n2.next,c)
+        sum.next=rem
+    return sum
+
